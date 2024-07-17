@@ -1,0 +1,37 @@
+[
+    {
+      "name": "Global Banking Corp.",
+      "companyLogo": "https://randomcompanylogos.com/global-banking.png",
+      "location": "Jalan Thamrin, Jakarta",
+      "email": "contact@globalbanking.com",
+      "description": "Leading financial services provider."
+    },
+    {
+      "name": "Gold Mines Ltd.",
+      "companyLogo": "https://randomcompanylogos.com/gold-mines.png",
+      "location": "Jalan Merdeka, Bandung",
+      "email": "info@goldmines.com",
+      "description": "Expert in gold mining operations."
+    },
+    {
+      "name": "Eco Consumer Goods Co.",
+      "companyLogo": "https://randomcompanylogos.com/eco-consumer-goods.png",
+      "location": "Jalan Sudirman, Surabaya",
+      "email": "support@ecoconsumer.com",
+      "description": "Sustainable consumer products."
+    },
+    {
+      "name": "Tech Future Innovations.",
+      "companyLogo": "https://randomcompanylogos.com/tech-future.png",
+      "location": "Jalan Diponegoro, Yogyakarta",
+      "email": "hello@techfuture.com",
+      "description": "Innovative tech solutions for all."
+    },
+    {
+      "name": "Green Energy Solutions.",
+      "companyLogo": "https://randomcompanylogos.com/green-energy.png",
+      "location": "Jalan Ahmad Yani, Semarang",
+      "email": "info@greenenergy.com",
+      "description": "Renewable energy for a sustainable future."
+    }
+  ]  
