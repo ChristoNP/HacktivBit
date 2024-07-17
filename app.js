@@ -5,7 +5,7 @@ const router = require('./routers')
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
-app.get('/', router)
+app.use('/', router)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

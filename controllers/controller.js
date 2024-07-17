@@ -11,7 +11,7 @@ class Controller{
     static async getSignUp(req,res){
         try {
            
-            
+            res.render('registerform')
         } catch (error) {
             res.send(error)
             
