@@ -11,7 +11,7 @@ class Controller{
     static async getSignUp(req,res){
         try {
            
-            
+            res.render('registerform')
         } catch (error) {
             res.send(error)
             
@@ -19,7 +19,9 @@ class Controller{
     }
     static async postSignUp(req,res){
         try {
-            
+            const {email, password, role} = req.body
+            await User.create({email, password, role})
+            res.redirect('/signin')
         } catch (error) {
             res.send(error)         
         }
@@ -27,7 +29,7 @@ class Controller{
 
     static async getSignIn(req,res){
         try {
-            
+            res.render('loginform')
         } catch (error) {
             res.send(error)         
         }
