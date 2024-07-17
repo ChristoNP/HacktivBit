@@ -31,6 +31,9 @@ module.exports = {
           key: "id"
         }
       },
+      stockPrice: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

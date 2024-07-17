@@ -5,7 +5,8 @@
       "location": "Jalan Thamrin, Jakarta",
       "email": "contact@globalbanking.com",
       "description": "Leading financial services provider.",
-      "CategoryId": 1
+      "CategoryId": 1,
+      "stockPrice": 1000
     },
     {
       "name": "Gold Mines Ltd.",
@@ -13,7 +14,8 @@
       "location": "Jalan Merdeka, Bandung",
       "email": "info@goldmines.com",
       "description": "Expert in gold mining operations.",
-      "CategoryId": 2
+      "CategoryId": 2,
+      "stockPrice": 2000
     },
     {
       "name": "Eco Consumer Goods Co.",
@@ -21,7 +23,8 @@
       "location": "Jalan Sudirman, Surabaya",
       "email": "support@ecoconsumer.com",
       "description": "Sustainable consumer products.",
-      "CategoryId": 3
+      "CategoryId": 3,
+      "stockPrice": 1500
     },
     {
       "name": "Tech Future Innovations.",
@@ -29,7 +32,8 @@
       "location": "Jalan Diponegoro, Yogyakarta",
       "email": "hello@techfuture.com",
       "description": "Innovative tech solutions for all.",
-      "CategoryId": 4
+      "CategoryId": 4,
+      "stockPrice": 3000
     },
     {
       "name": "Green Energy Solutions.",
@@ -37,6 +41,7 @@
       "location": "Jalan Ahmad Yani, Semarang",
       "email": "info@greenenergy.com",
       "description": "Renewable energy for a sustainable future.",
-      "CategoryId": 5
+      "CategoryId": 5,
+      "stockPrice": 4500
     }
   ]  
