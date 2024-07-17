@@ -1,10 +1,9 @@
-const {Meme, Category} =  require("../models")
-
+const {User, Profile, Category, Company, Investment} =  require("../models")
 
 class Controller{
     static async LandingPage(req,res){
         try {
-            req.render('landingpage')
+            res.render('landingpage')
         } catch (error) {
             res.send(error)          
         }
@@ -22,7 +21,7 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -30,7 +29,7 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -38,7 +37,7 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -46,7 +45,7 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -54,7 +53,7 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -62,7 +61,7 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -70,14 +69,14 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
     static async home(req,res){
         try {
             res.render('home')
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
     static async getListCompany(req,res){
@@ -85,7 +84,7 @@ class Controller{
             let data = await Company.findAll()
             res.render('company', {data})
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -93,7 +92,7 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -101,7 +100,7 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 
@@ -109,20 +108,16 @@ class Controller{
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
     static async getSignOut(req,res){
         try {
             
         } catch (error) {
-            req.send(error)         
+            res.send(error)         
         }
     }
 }
-
-
-
-
 
 module.exports = Controller

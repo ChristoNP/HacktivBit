@@ -1,8 +1,6 @@
 const router = require('express').Router()
 const Controller = require('../controllers/controller')
 
-
-
 router.get('/', Controller.LandingPage)
 router.get('/signup', Controller.getSignUp)
 router.post('/signup', Controller.postSignUp)
@@ -18,15 +16,6 @@ router.get('/company/:id/buy', Controller.buyStock)
 router.get('/company/:id/sell', Controller.sellStock) 
 router.get('/company/:id/delete', Controller.deleteCompany) 
 router.get('/signout', Controller.getSignOut)
-
-
-
-
-
-
-
-
-
 
 module.exports = router
 
