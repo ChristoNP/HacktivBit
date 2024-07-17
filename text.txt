@@ -1,0 +1,14 @@
+npx sequelize-cli model:create --name "User" --attributes email:string,password:string,role:string
+npx sequelize-cli model:create --name "Profile" --attributes name:string,phoneNumber:integer
+(jangan lupa buat add column UserId di profile)
+
+npx sequelize-cli model:create --name "Category" --attributes name:string
+npx sequelize-cli model:create --name "Company" --attributes name:string,companyLogo:string,location:string,email:string,description:string,CategoryId:integer
+npx sequelize-cli model:create --name "Investment" --attributes name:string,description:string,CompanyId:integer,UserId:integer,investmentType:string,amount:integer
+
+npx sequelize-cli migration:create --name "addColumnUserId"
+npx sequelize db:migrate:undo:all
+
+npx sequelize-cli seed:create --name "SeedCategory"
+npx sequelize-cli seed:create --name "SeedCompany"
+npx sequelize-cli db:seed:all
