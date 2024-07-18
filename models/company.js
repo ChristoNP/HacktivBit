@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     location: DataTypes.STRING,
     email: DataTypes.STRING,
     description: DataTypes.STRING,
-    CategoryId: DataTypes.INTEGER,
-    stockPrice: DataTypes.INTEGER
+    stockPrice: DataTypes.INTEGER,
+    CategoryId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Company',
