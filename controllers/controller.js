@@ -11,7 +11,6 @@ class Controller{
     }   
     static async getSignUp(req,res){
         try {
-           
             res.render('registerform')
         } catch (error) {
             res.send(error)
@@ -20,8 +19,8 @@ class Controller{
     }
     static async postSignUp(req,res){
         try {
-            const {email, password, role} = req.body
-           let new_user = await User.create({email, password, role})
+            const {email, password} = req.body
+           let new_user = await User.create({email, password})
            await Profile.create({UserId: new_user.id})
             res.redirect('/signin')
         } catch (error) {
@@ -48,6 +47,7 @@ class Controller{
                 const isValidPassword = bcrypt.compareSync(password, dataUser.password)
                 if (isValidPassword) {
                     req.session.UserId = dataUser.id
+                    req.session.role = dataUser.role
                     return res.redirect('/home')
                 } else {
                     const error = 'invalid username/password'
@@ -134,7 +134,13 @@ class Controller{
     }
     static async getSignOut(req,res){
         try {
-            
+            req.session.destroy((err) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.redirect('/signin')
+                }
+            })
         } catch (error) {
             res.send(error)         
         }
