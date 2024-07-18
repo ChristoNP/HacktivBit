@@ -17,8 +17,34 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: {
+          msg: 'Email Required'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Password Required'
+        },
+        notEmpty: {
+          msg: 'Password Required'
+        },
+        charCheck(value) {
+          if (value.length <= 4) {
+            throw new Error('Password must be longer than 4 characters');
+          }
+        }
+      }
+    },
+    
     role: DataTypes.STRING,
   }, {
     hooks: {

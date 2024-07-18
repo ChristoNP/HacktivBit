@@ -3,22 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <!-- script -->
     <%- include('_tailwindCDN') %>
+
+    <title>Login</title>
+    <style>
+        html {
+            background-color: #d0e7f5;
+        }
+    </style>
 </head>
 <body>
+    <!-- navbar -->
     <%- include('_navbarSession') %>
 
-    <div>
-        <p class="text-5xl text-gray-900 dark:text-white" style="text-align: center;">Profile</p>
+    <!-- card -->
+    <div class="ml-96 pl-9 rounded-2xl w-[600px] bg-[#ffffff] mt-5 shadow-xl">
+        <figure class="flex justify-center items-center rounded-2xl">
+            <img src="https://i.pravatar.cc/200
+            " alt="profile-pic" class="rounded-xl">
+        </figure>
+        <div class="flex flex-col p-8">
+            <div class="text-3xl font-bold text-[#000000] pb-6">Username:</div>
+            <% profile.forEach(el => { %>
+                <p class=" text-xl text-[#374151]"><%= el.name %></p>
+            <div class="text-3xl font-bold text-[#000000] pb-6">Phone Number:</div>
+                <p class=" text-xl text-[#374151]"><%= el.phoneNumber %></p>
+           
+            <div class="flex justify-end pt-6">
+                <a href="/userprofile/<%= el.id %>/edit" class="bg-[#12A8FC] text-[#ffffff]  font-bold text-base  p-3 rounded-lg hover:bg-purple-800 active:scale-95 transition-transform transform">Edit Profile</a>
+            </div>
+            <% }) %>
+        </div>
     </div>
-    <div>
-        <h1>
-            <p class="text-2xl text-gray-900 dark:text-white">Name :</p>
-            <p class="text-2xl text-gray-900 dark:text-white">Phone Number :</p>
-            <p class="text-2xl text-gray-900 dark:text-white">Email :</p>
-        </h1>
-    </div>
+    
 </body>
 </html>

@@ -17,14 +17,13 @@ router.use((req, res, next) => {
 })
 
 router.get('/userprofile', Controller.getProfile)
-router.get('/userprofile/:id/detail', Controller.userDetail)
 router.get('/userprofile/:id/edit', Controller.getEditUser)
 router.post('/userprofile/:id/edit', Controller.postEditUser)
 router.get('/home', Controller.home)
 router.get('/company', Controller.getListCompany) 
+router.get('/company/:id/buyNew', Controller.buyNewStock)
 router.get('/company/:id/buy', Controller.buyStock) 
 router.get('/company/:id/sell', Controller.sellStock)
-router.get('/company/:id/buyNew', Controller.buyNewStock)
 router.get('/company/:id/delete', Controller.deleteCompany) 
 router.get('/signout', Controller.getSignOut)
 

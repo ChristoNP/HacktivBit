@@ -13,7 +13,8 @@ class Controller {
   }
   static async getSignUp(req, res) {
     try {
-      res.render("registerform");
+        const {errors} = req.query
+      res.render("registerform", {errors});
     } catch (error) {
       res.send(error);
     }
@@ -25,7 +26,13 @@ class Controller {
       await Profile.create({ UserId: new_user.id });
       res.redirect("/signin");
     } catch (error) {
-      res.send(error);
+        if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+            error = error.errors.map(el => {
+               return el.message})
+               res.redirect(`/signup?errors=${error}`)
+        } else {
+            res.send(error)
+        }
     }
   }
 
@@ -65,21 +72,14 @@ class Controller {
 
   static async getProfile(req, res) {
     try {
-      //  let data =  await Profile.findAll()
-      // {
-      //     include: 'Users',
-      //     attributes: ['email']
-      // })
-      res.render("profile");
-      // console.log(data);
-    } catch (error) {
-      res.send(error);
-    }
-  }
-
-  static async userDetail(req, res) {
-    try {
-      res.render("profile");
+        let userid = req.session.UserId
+        let profile = await Profile.findAll({
+            where: {UserId: userid},
+            include: {
+                model: User,
+            }
+        })
+      res.render("profile", {profile});
     } catch (error) {
       res.send(error);
     }
@@ -87,8 +87,12 @@ class Controller {
 
   static async getEditUser(req, res) {
     try {
-      let data = await User.findAll();
-      res.render("showFormEdit", { data });
+        const {id} = req.params
+        // console.log(req.params);
+        let userid = req.session.UserId
+        let profile = await Profile.findByPk(id)
+        console.log(profile);
+      res.render("showFormEdit", { profile });
     } catch (error) {
       res.send(error);
     }
@@ -97,8 +101,12 @@ class Controller {
   static async postEditUser(req, res) {
     try {
       const { name, phoneNumber } = req.body;
-      await User.create({ name, phoneNumber });
-      res.redirect("showFormEdit");
+      const {id} = req.params
+      let userid = req.session.UserId
+      await Profile.update({name, phoneNumber, UserId: userid}, {
+        where: {id}
+      })
+      res.redirect("/userprofile");
     } catch (error) {
       res.send(error);
     }
@@ -131,8 +139,9 @@ class Controller {
   static async getListCompany(req, res) {
     try {
       const { name } = req.query;
+      let role = req.session.role
       let data = await Company.search(name)
-      res.render("company", { data });
+      res.render("company", { data, role, currency });
     } catch (error) {
       res.send(error.message);
     }
@@ -160,6 +169,7 @@ class Controller {
     } catch (error) {
       res.send(error);
     }
+}
     static async buyNewStock(req, res) {
         try {
             const { id } = req.params;
