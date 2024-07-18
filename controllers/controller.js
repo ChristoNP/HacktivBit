@@ -47,6 +47,7 @@ class Controller{
             if (dataUser) {
                 const isValidPassword = bcrypt.compareSync(password, dataUser.password)
                 if (isValidPassword) {
+                    req.session.UserId = dataUser.id
                     return res.redirect('/home')
                 } else {
                     const error = 'invalid username/password'
