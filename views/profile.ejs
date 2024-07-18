@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <%- include('_tailwindCDN') %>
 </head>
 <body>
-    <h1>
-        Profile
-    </h1>
+    <%- include('_navbarSession') %>
+
+    <div>
+        <p class="text-5xl text-gray-900 dark:text-white" style="text-align: center;">Profile</p>
+    </div>
+    <div>
+        <h1>
+            <p class="text-2xl text-gray-900 dark:text-white">Name :</p>
+            <p class="text-2xl text-gray-900 dark:text-white">Phone Number :</p>
+            <p class="text-2xl text-gray-900 dark:text-white">Email :</p>
+        </h1>
+    </div>
 </body>
 </html>
