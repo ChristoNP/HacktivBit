@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       Investment.belongsTo(models.User)
       Investment.belongsTo(models.Company)
     }
+    get caption() {
+      return `${this.name} / ${this.investmentType}`
+    }
   }
   Investment.init({
     name: DataTypes.STRING,

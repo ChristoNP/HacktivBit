@@ -15,14 +15,6 @@ router.use((req, res, next) => {
         next()
     }
 })
-// const adminAuth = function (req, res, next) {
-//     if (req.session.UserId && req.session.role !== 'superadmin') {
-//         const error = 'Access Denied'
-//         res.redirect(`/signin?error=${error}`)
-//     } else {
-//         next()
-//     }
-// }
 
 router.get('/userprofile', Controller.getProfile)
 router.get('/userprofile/:id/detail', Controller.userDetail)

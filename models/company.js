@@ -14,9 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       Company.belongsTo(models.Category)
       Company.hasMany(models.Investment)
     }
-    get typeOfInv() {
-      return ``
-    }
   }
   Company.init({
     name: DataTypes.STRING,

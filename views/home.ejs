@@ -13,31 +13,38 @@
     <%- include('_navbarSession') %>
 
     <!-- parent -->
-    <div class="flex">
+    <div class="flex flex-grow">
         <!-- left -->
-        <div class="w-4/12 m-5 px-14">
+        <div class="w-4/12 m-5 px-14 overflow-y-auto">
             <!-- headline -->
             <h1 class="mb-4 mt-2 text-start font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-gray-900">Portfolio:</h1>
 
             <!-- cards -->
             <div class="mt-4 mb-12 grid gap-y-10 gap-x-6 md:grid-rows-2 xl:grid-rows-4">
-                <% invest.forEach(el => { %>
-                <div class="relative drop-shadow-lg flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 border border-blue-gray-100 shadow-sm">
-                    <div class="flex bg-clip-border mt-4 mx-4 rounded-xl overflow-hidden text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm absolute grid h-12 w-12 place-items-center">
-                        <a href="/company/<%= el.Company.id %>/buy" type="button">Buy</a>
+                <% if (invest.length > 0 ) { %>
+                    <% invest.forEach(el => { %>
+                    <div class="relative drop-shadow-lg flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 border border-blue-gray-100 shadow-sm">
+                        <div class="flex bg-clip-border mt-4 mx-4 rounded-xl overflow-hidden text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm absolute grid h-12 w-12 place-items-center">
+                            <a href="/company/<%= el.Company.id %>/buy" type="button">Buy</a>
+                        </div>
+                        <div class="flex bg-clip-border ml-20 mt-4 mx-4 rounded-xl overflow-hidden text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm absolute grid h-12 w-12 place-items-center">
+                            <a href="/company/<%= el.Company.id %>/sell" type="button">Sell</a>
+                        </div>
+                        <div class="p-4 text-right">
+                            <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600"><%= el.Company.name %></p>
+                            <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900"><%= el.caption %></h4>
+                        </div>
+                        <div class="border-t border-blue-gray-50 p-4">
+                            <p class="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">Total Investment:  <strong><%= currency(el.amount) %></strong></p>
+                        </div>
                     </div>
-                    <div class="flex bg-clip-border ml-20 mt-4 mx-4 rounded-xl overflow-hidden text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm absolute grid h-12 w-12 place-items-center">
-                        <a href="/company/<%= el.Company.id %>/sell" type="button">Sell</a>
+                    <% }) %>
+                <% } else { %>
+                    <div class="text-center text-gray-900 mt-8">
+                        <h2 class="text-2xl font-bold">Start investing now</h2>
+                        <p class="text-gray-600 mt-2">You currently have no investments. Explore the available companies and start investing today!</p>
                     </div>
-                    <div class="p-4 text-right">
-                        <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600"><%= el.Company.name %></p>
-                        <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900"><%= el.name %></h4>
-                    </div>
-                    <div class="border-t border-blue-gray-50 p-4">
-                        <p class="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">Total Investment:  <strong><%= currency(el.amount) %></strong></p>
-                    </div>
-                </div>
-                <% }) %>
+                <% } %>
             </div>
         </div>
 
@@ -49,45 +56,43 @@
             <!-- table -->
             <div class="flex flex-col">
                 <div class="-m-1.5 overflow-x-auto">
-                  <div class="p-1.5 min-w-full inline-block align-middle">
-                    <div class="overflow-hidden">
-                      <table class="min-w-full divide-y divide-gray-200">
-                        <thead>
-                          <tr>
-                            <th scope="col" class="px-6 py-3 text-center text-md font-medium text-gray-900 uppercase">Company</th>
-                            <th scope="col" class="px-6 py-3 text-center text-md font-medium text-gray-900 uppercase">Type</th>
-                            <th scope="col" class="px-6 py-3 text-center text-md font-medium text-gray-900 uppercase">Price/lot</th>
-                            <th scope="col" class="px-6 py-3 text-center text-md font-medium text-gray-900 uppercase">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                        <% company.forEach(el => { %>
-                          <tr class="hover:bg-gray-100">
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800"><%= el.name %></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800"><%= el.Category.name %></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800"><%= currency(el.stockPrice) %></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-center text-sm font-medium">
-                                <% invest.forEach(elInv => { %>
-                                    <% if (elInv.CompanyId === el.id) { %>
-                                        <a href="/company/<%= el.id %>/buy" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-700 hover:text-blue-900 disabled:opacity-50 disabled:pointer-events-none">Buy</button>
-                                    <% } %>
-                                <% }) %>
-                                <a href="/company/<%= userId %>/buyNew" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-700 hover:text-blue-900 disabled:opacity-50 disabled:pointer-events-none">Buy</button>
-                                <% if (role === 'admin') { %>
-                                <a href="#" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-700 hover:text-red-900 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-                                    <% } %>
-                            </td>
-                          </tr>
-                        <% }) %>
-                        </tbody>
-                      </table>
+                    <div class="p-1.5 min-w-full inline-block align-middle">
+                        <div class="overflow-hidden">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-center text-md font-medium text-gray-900 uppercase">Company</th>
+                                        <th scope="col" class="px-6 py-3 text-center text-md font-medium text-gray-900 uppercase">Type</th>
+                                        <th scope="col" class="px-6 py-3 text-center text-md font-medium text-gray-900 uppercase">Price/lot</th>
+                                        <th scope="col" class="px-6 py-3 text-center text-md font-medium text-gray-900 uppercase">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <% company.forEach(el => { %>
+                                        <tr class="hover:bg-gray-100">
+                                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800"><%= el.name %></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800"><%= el.Category.name %></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800"><%= currency(el.stockPrice) %></td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-center text-center text-sm font-medium">
+                                                <% if (role === 'admin') { %>
+                                                    <a href="/company/<%= el.id %>/delete" type="button" class="ml-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-700 hover:text-red-900 disabled:opacity-50 disabled:pointer-events-none">Delete</a>
+                                                <% } else { %>
+                                                    <% if (invest.length > 0 ) { %>
+                                                        <a href="/company/<%= el.id %>/buy" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-700 hover:text-blue-900 disabled:opacity-50 disabled:pointer-events-none">Buy</a>
+                                                    <% } else { %>
+                                                        <a href="/company/<%= el.id %>/buyNew" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-700 hover:text-blue-900 disabled:opacity-50 disabled:pointer-events-none">Buy New</a>
+                                                    <% } %>
+                                               <% }%>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
-
-
 </body>
 </html>
