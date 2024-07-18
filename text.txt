@@ -12,3 +12,6 @@ npx sequelize db:migrate:undo:all
 npx sequelize-cli seed:create --name "SeedCategory"
 npx sequelize-cli seed:create --name "SeedCompany"
 npx sequelize-cli db:seed:all
+
+
+laper@banget.com => 12345
