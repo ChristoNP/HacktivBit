@@ -1,5 +1,6 @@
 const {User, Profile, Category, Company, Investment} =  require("../models")
 const bcrypt = require('bcryptjs')
+const currency = require('../helper/currency')
 
 class Controller{
     static async LandingPage(req,res){
@@ -103,7 +104,19 @@ class Controller{
     }
     static async home(req,res){
         try {
-            res.render('home')
+            let invest = await Investment.findAll({
+                include: {
+                    model: Company
+                }
+            })
+            let company = await Company.findAll({
+                include: {
+                    model: Category
+                }
+            })
+            let userId = req.session.UserId
+            let role = req.session.role
+            res.render('home', {invest, currency, company, role, userId})
         } catch (error) {
             res.send(error)         
         }
@@ -119,7 +132,11 @@ class Controller{
 
     static async buyStock(req,res){
         try {
-            
+            const {id} = req.params
+            let company = await Company.findByPk(id)
+            let findInvestment = await Investment.findByPk(+id)
+            await findInvestment.increment('amount', {by: company.stockPrice})
+            res.redirect('/home')
         } catch (error) {
             res.send(error)         
         }
@@ -127,9 +144,20 @@ class Controller{
 
     static async sellStock(req,res){
         try {
-            
+            const {id} = req.params
+            let company = await Company.findByPk(id)
+            let findInvestment = await Investment.findByPk(+id)
+            await findInvestment.decrement('amount', {by: company.stockPrice})
+            res.redirect('/home')
         } catch (error) {
             res.send(error)         
+        }
+    }
+    static async buyNewStock(req, res) {
+        try {
+           
+        } catch (error) {
+           res.send(error) 
         }
     }
 

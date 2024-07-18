@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const Company = require('./company')
 module.exports = (sequelize, DataTypes) => {
   class Investment extends Model {
     /**
