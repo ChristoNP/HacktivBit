@@ -1,6 +1,6 @@
-const {User, Profile, Category, Company, Investment} =  require("../models")
-const bcrypt = require('bcryptjs')
-const currency = require('../helper/currency')
+const { User, Profile, Category, Company, Investment } = require("../models");
+const bcrypt = require("bcryptjs");
+const currency = require("../helper/currency");
 const { Op } = require("sequelize");
 
 class Controller {
@@ -103,7 +103,7 @@ class Controller {
       res.send(error);
     }
   }
-   
+  
   static async home(req, res) {
     try {
         let userId = req.session.UserId;
@@ -131,74 +131,35 @@ class Controller {
   static async getListCompany(req, res) {
     try {
       const { name } = req.query;
-      let data;
-      if (name) {
-        data = await Company.findAll({
-          where: {
-            name: {
-              [Op.iLike]: `%${name}%`,
-            },
-          },
-        });
-      } else {
-        data = await Company.findAll();
-      }
+      let data = await Company.search(name)
       res.render("company", { data });
+    } catch (error) {
+      res.send(error.message);
+    }
+  }
+
+  static async buyStock(req, res) {
+    try {
+      const { id } = req.params;
+      let company = await Company.findByPk(id);
+      let findInvestment = await Investment.findByPk(+id);
+      await findInvestment.increment("amount", { by: company.stockPrice });
+      res.redirect("/home");
     } catch (error) {
       res.send(error);
     }
   }
-    
-static async buyStock(req,res){
-        try {
-            const {id} = req.params
-            let company = await Company.findByPk(id)
-            let findInvestment = await Investment.findByPk(+id)
-            await findInvestment.increment('amount', {by: company.stockPrice})
-            res.redirect('/home')
-        } catch (error) {
-            res.send(error)         
-        }
-  }
 
-static async sellStock(req,res){
-        try {
-            const {id} = req.params
-            let company = await Company.findByPk(id)
-            let findInvestment = await Investment.findByPk(+id)
-            await findInvestment.decrement('amount', {by: company.stockPrice})
-            res.redirect('/home')
-        } catch (error) {
-            res.send(error)         
-        }
+  static async sellStock(req, res) {
+    try {
+      const { id } = req.params;
+      let company = await Company.findByPk(id);
+      let findInvestment = await Investment.findByPk(+id);
+      await findInvestment.decrement("amount", { by: company.stockPrice });
+      res.redirect("/home");
+    } catch (error) {
+      res.send(error);
     }
-    // static async buyNewStock(req, res) {
-    //     try {
-    //         const { id } = req.params
-    //         const userId = req.session.UserId
-    //         let company = await Company.findByPk(id);
-    //         let findInvestment = await Investment.findOne({
-    //             where: {
-    //                 UserId: userId,
-    //                 CompanyId: id
-    //             }
-    //         })
-    //         if (findInvestment) {
-    //             await findInvestment.increment('amount', { by: company.stockPrice });
-    //         } else {
-    //             await Investment.create({
-    //                 UserId: userId,
-    //                 CompanyId: id,
-    //                 amount: company.stockPrice,
-    //                 caption: `Investment in ${company.name}`
-    //             })
-    //         }
-    //         res.redirect('/home');
-    //     } catch (error) {
-    //         res.send(error);
-    //     }
-    // }
-
     static async buyNewStock(req, res) {
         try {
             const { id } = req.params;
@@ -257,8 +218,6 @@ static async sellStock(req,res){
             res.send(error.message);
         }
     }
-        
-
   static async deleteCompany(req, res) {
     try {
       const { id } = req.params;
