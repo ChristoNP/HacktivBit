@@ -62,7 +62,8 @@ class Controller{
 
     static async getEditUser(req,res){
         try {
-            
+            let data = await User.findAll()
+            res.render('showFormEdit', {data})
         } catch (error) {
             res.send(error)         
         }
@@ -70,7 +71,9 @@ class Controller{
 
     static async postEditUser(req,res){
         try {
-            
+            const{name, phoneNumber} = req.body
+            await User.create ({name, phoneNumber})
+            res.redirect('showFormEdit')
         } catch (error) {
             res.send(error)         
         }
