@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       Company.belongsTo(models.Category);
       Company.hasMany(models.Investment);
     }
-
     static async search(name) {
       let data;
       if (name) {
