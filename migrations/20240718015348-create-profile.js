@@ -12,8 +12,12 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      phoneNumber: {
-        type: Sequelize.INTEGER
+      UserId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,
@@ -22,13 +26,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      UserId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: "id"
-        }
       }
     });
   },

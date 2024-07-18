@@ -12,11 +12,11 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   const data = require('../data/category.json').map(el => {
-    el.createdAt = el.updatedAt = new Date()
-    return el
-   })
-   await queryInterface.bulkInsert('Categories', data, {})
+    const data = require('../data/category.json').map(el => {
+      el.createdAt = el.updatedAt = new Date()
+      return el
+     })
+     await queryInterface.bulkInsert('Categories', data, {})
   },
 
   async down (queryInterface, Sequelize) {
