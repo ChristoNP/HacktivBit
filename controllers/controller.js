@@ -20,7 +20,8 @@ class Controller{
     static async postSignUp(req,res){
         try {
             const {email, password, role} = req.body
-            await User.create({email, password, role})
+           let new_user = await User.create({email, password, role})
+           await Profile.create({UserId: new_user.id})
             res.redirect('/signin')
         } catch (error) {
             res.send(error)         
