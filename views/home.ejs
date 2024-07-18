@@ -77,16 +77,23 @@
                                                 <% if (role === 'admin') { %>
                                                     <a href="/company/<%= el.id %>/delete" type="button" class="ml-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-700 hover:text-red-900 disabled:opacity-50 disabled:pointer-events-none">Delete</a>
                                                 <% } else { %>
-                                                    <% if (invest.length > 0 ) { %>
+                                                    <% let hasInvestment = false; %>
+                                                    <% invest.forEach(elInv => { %>
+                                                        <% if (elInv.CompanyId === el.id) { %>
+                                                            <% hasInvestment = true; %>
+                                                        <% } %>
+                                                    <% }) %>
+                                                    <% if (hasInvestment) { %>
                                                         <a href="/company/<%= el.id %>/buy" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-700 hover:text-blue-900 disabled:opacity-50 disabled:pointer-events-none">Buy</a>
                                                     <% } else { %>
                                                         <a href="/company/<%= el.id %>/buyNew" type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-700 hover:text-blue-900 disabled:opacity-50 disabled:pointer-events-none">Buy New</a>
                                                     <% } %>
-                                               <% }%>
+                                                <% } %>
                                             </td>
                                         </tr>
                                     <% }) %>
                                 </tbody>
+                                
                             </table>
                         </div>
                     </div>

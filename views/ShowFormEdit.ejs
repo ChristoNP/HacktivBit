@@ -3,27 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <!-- script -->
     <%- include('_tailwindCDN') %>
+
+    <title>Login</title>
+    <style>
+        html {
+            background-color: #d0e7f5;
+        }
+    </style>
 </head>
 <body>
-    
-    <%- include('_navbar') %>
+    <!-- navbar -->
+    <%- include('_navbarSession') %>
 
-    <form class="max-w-sm mx-auto">
-        <div class="mb-5">
-          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" e.g Parjo" required />
-        </div>
-        <div class="mb-5">
-          <label for="Phone Number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-        </div>
-        <a  href="/userprofile" "button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</a>
-      </form>
+    <!-- login -->
+    <div class="mt-7 ml-96 max-w-xl bg-white border border-gray-200 rounded-xl shadow-sm">
+        <div class="p-4 sm:p-7">
+          <div class="text-center">
+            <h1 class="block text-2xl font-bold text-gray-800">Profile Detail</h1>
+                <% if (profile.name === null && profile.phoneNumber === null) { %>
+                    <p class="mt-2 text-md text-gray-600">Complete Your Profile</p>
+                    
+          </div>
       
+            <!-- Form -->
+            <form class="mt-3 max-w-sm mx-auto" method="post" action="/userprofile/<%= profile.id %>/edit">
+                <div class="mb-5">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800">Username</label>
+                    <input value="<%= profile.name %>" name="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-50 dark:placeholder-gray-400 dark:text-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="eg: ngantukboz"/>
+                  </div>
+                <div class="mb-5">
+                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800">Phone Number</label>
+                    <input value="<%= profile.phoneNumber %>" name="phoneNumber" type="number" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-50 dark:placeholder-gray-400 dark:text-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                </div>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            </form>
+            <% } else { %>
+                <!-- Form -->
+                <form class="mt-3 max-w-sm mx-auto" method="post" action="/userprofile/<%= profile.id %>/edit">
+                    <div class="mb-5">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800">Username</label>
+                        <input value="<%= profile.name %>" name="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-50 dark:placeholder-gray-400 dark:text-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="eg: ngantukboz"/>
+                    </div>
+                    <div class="mb-5">
+                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800">Phone Number</label>
+                        <input value="<%= profile.phoneNumber %>" name="phoneNumber" type="number" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-50 dark:border-gray-50 dark:placeholder-gray-400 dark:text-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                    </div>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                </form>
+           <% }%>
+    </div>
 
-
+    
 </body>
 </html>
