@@ -1,4 +1,5 @@
 const {User, Profile, Category, Company, Investment} =  require("../models")
+const bcrypt = require('bcryptjs')
 
 class Controller{
     static async LandingPage(req,res){
@@ -30,7 +31,8 @@ class Controller{
 
     static async getSignIn(req,res){
         try {
-            res.render('loginform')
+            const {error} = req.query
+            res.render('loginform', {error})
         } catch (error) {
             res.send(error)         
         }
@@ -38,7 +40,22 @@ class Controller{
 
     static async postSignIn(req,res){
         try {
-            
+            const {email, password} = req.body
+            let dataUser = await User.findOne({
+                where: {email}
+            })
+            if (dataUser) {
+                const isValidPassword = bcrypt.compareSync(password, dataUser.password)
+                if (isValidPassword) {
+                    return res.redirect('/home')
+                } else {
+                    const error = 'invalid username/password'
+                    return res.redirect(`/signin?error=${error}`)
+                }
+            } else {
+                const error = 'invalid username/password'
+                return res.redirect(`/signin?error=${error}`)
+            }
         } catch (error) {
             res.send(error)         
         }
