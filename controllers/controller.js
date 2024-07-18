@@ -64,7 +64,11 @@ class Controller{
 
     static async getProfile(req,res){
         try {
-            
+            //  let data =  await Profile.findAll({
+            //     include: 'Users',
+            //     attributes: ['email']
+            // })
+            res.render('profile')
         } catch (error) {
             res.send(error)         
         }
@@ -72,7 +76,8 @@ class Controller{
 
     static async userDetail(req,res){
         try {
-            
+           
+            res.render('profile')
         } catch (error) {
             res.send(error)         
         }
