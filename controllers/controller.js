@@ -21,22 +21,6 @@ class Controller {
       res.send(error);
     }
   }
-//   static async postSignUp(req, res) {
-//     try {
-//       const { email, password } = req.body;
-//       let new_user = await User.create({ email, password });
-//       await Profile.create({ UserId: new_user.id });
-//       res.redirect("/signin");
-//     } catch (error) {
-//         if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
-//             error = error.errors.map(el => {
-//                return el.message})
-//                res.redirect(`/signup?errors=${error}`)
-//         } else {
-//             res.send(error)
-//         }
-//     }
-//   }
 
 static async postSignUp(req, res) {
     try {
@@ -111,7 +95,6 @@ static async postSignUp(req, res) {
         const {id} = req.params
         let userid = req.session.UserId
         let profile = await Profile.findByPk(id)
-        console.log(profile);
       res.render("showFormEdit", { profile });
     } catch (error) {
       res.send(error);
