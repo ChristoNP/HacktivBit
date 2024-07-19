@@ -1,6 +1,8 @@
 const { User, Profile, Category, Company, Investment } = require("../models");
 const bcrypt = require("bcryptjs");
 const currency = require("../helper/currency");
+const { sendEmail } = require("../nodemailer/nodemailer"); 
+const nodemailer = require('nodemailer');
 const { Op } = require("sequelize");
 
 class Controller {
@@ -19,11 +21,30 @@ class Controller {
       res.send(error);
     }
   }
-  static async postSignUp(req, res) {
+//   static async postSignUp(req, res) {
+//     try {
+//       const { email, password } = req.body;
+//       let new_user = await User.create({ email, password });
+//       await Profile.create({ UserId: new_user.id });
+//       res.redirect("/signin");
+//     } catch (error) {
+//         if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+//             error = error.errors.map(el => {
+//                return el.message})
+//                res.redirect(`/signup?errors=${error}`)
+//         } else {
+//             res.send(error)
+//         }
+//     }
+//   }
+
+static async postSignUp(req, res) {
     try {
       const { email, password } = req.body;
       let new_user = await User.create({ email, password });
       await Profile.create({ UserId: new_user.id });
+      await sendEmail(email);
+
       res.redirect("/signin");
     } catch (error) {
         if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
@@ -88,7 +109,6 @@ class Controller {
   static async getEditUser(req, res) {
     try {
         const {id} = req.params
-        // console.log(req.params);
         let userid = req.session.UserId
         let profile = await Profile.findByPk(id)
         console.log(profile);
